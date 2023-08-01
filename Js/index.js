@@ -21,7 +21,7 @@ function addNewStudent() {
     const surname = document.getElementById('surname').value;
     const gender = getGender();
 
-    const ieltsScore = document.getElementById('ielts').value;
+    const ieltsScore = +document.getElementById('ielts').value;
     const birthDate = new Date(document.getElementById('birth').value);
 
     let message = "-1";
@@ -58,10 +58,41 @@ function addNewStudent() {
         gender: gender,
     }
 
+    displayArray();
     arrOfStudents.push(newStudent);
+    displayArray();
     changeAllOfThemToEmpty();
     showMessage("Added new Student successfully", true);
 }
+
+function displayArray() {
+    const parentDiv = document.getElementById('parentDiv');
+    parentDiv.innerHTML = "";
+
+    arrOfStudents.forEach((student) => {
+        const imgSrc = student.gender === 'male' ? 'Photos/Boy.png' : 'Photos/Girl.jpg';
+
+        parentDiv.innerHTML += `
+    <div id="carouselExampleControls" class="carousel" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="card">
+                    <div class="img-wrapper">
+                        <img src="${imgSrc}" alt="404">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">${student.firstName + "  " + student.surname}</h5>
+                        <h5 class="card-title">${calculateAge(new Date(student.birth))} age</h5>
+                        <p class="card-text">This student's IELTS score is ${student.IELTSScore}</p>
+                        <p>${student.gender}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    });
+}
+
 
 function changeAllOfThemToEmpty() {
     document.getElementById('firstname').value = '';
@@ -99,3 +130,21 @@ function showMessage(message, isError = false) {
         shownMessage.style.color = 'black';
     }, 3000);
 }
+
+function calculateAge(birthDate) {
+    const currentDate = new Date();
+  
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+  
+    if (
+      currentDate.getMonth() < birthDate.getMonth() ||
+      (currentDate.getMonth() === birthDate.getMonth() &&
+        currentDate.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+  
+    return age;
+  }
+  
+  
