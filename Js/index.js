@@ -69,7 +69,7 @@ function displayArray() {
     const parentDiv = document.getElementById('parentDiv');
     parentDiv.innerHTML = "";
 
-    arrOfStudents.forEach((student) => {
+    arrOfStudents.map((student, index) => {
         const imgSrc = student.gender === 'male' ? 'Photos/Boy.png' : 'Photos/Girl.jpg';
 
         parentDiv.innerHTML += `
@@ -84,6 +84,7 @@ function displayArray() {
                         <h5 class="card-title">${student.firstName + "  " + student.surname}</h5>
                         <h5 class="card-title">${calculateAge(new Date(student.birth))} age</h5>
                         <p class="card-text">This student's IELTS score is ${student.IELTSScore}</p>
+                        <button onclick="deleteUser(${index})">Remove</button>
                         <p>${student.gender}</p>
                     </div>
                 </div>
@@ -91,6 +92,12 @@ function displayArray() {
         </div>
     </div>`;
     });
+}
+
+function deleteUser(index) {
+    arrOfStudents.splice(index, 1);
+    showMessage("User deleted successfully", true);
+    displayArray();
 }
 
 
