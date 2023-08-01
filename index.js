@@ -39,27 +39,53 @@ function addNewStudent() {
         }
     }
 
+    const gender = getGender();
+
+    if (gender === null) {
+        document.querySelector('h1').innerHTML = "Please select gender";
+        return;
+    }
+
     const newStudent = {
         firstName: firstName,
         surname: surname,
         birth: birth,
-        ielts: ielts
+        ielts: ielts,
+        gd: gender
     };
 
+    console.log(newStudent);
     arrOfStudents.push(newStudent);
 
     changeAllToEmpty();
     updateDisplay();
 }
 
-function updateDisplay() {
-    const displayElement = document.querySelector('h1');
-    displayElement.textContent = "List of students: " + JSON.stringify(arrOfStudents);
+function getGender() {
+    const genderInputs = document.getElementsByName('gender');
+
+    for (const genderInput of genderInputs)
+        if (genderInput.checked)
+            return genderInput.value;
+
+    return null;
 }
+
+
+function updateDisplay() {
+    const res = document.querySelector('h1');
+    console.log(arrOfStudents);
+}
+
 
 function changeAllToEmpty() {
     document.getElementById('firstName').value = '';
     document.getElementById('surname').value = '';
     document.getElementById('dab').value = '';
     document.getElementById('ielts').value = '';
+
+    const genderInputs = document.getElementsByName('gender');
+
+    for (const genderInput of genderInputs)
+        genderInput.checked = false;
 }
