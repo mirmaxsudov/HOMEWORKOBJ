@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Main menu</title>
+    <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
+    <div>
+        <h1>Add new student</h1>
+        <input type="text" placeholder="First name" id="firstName">
+        <input type="text" placeholder="Surname name" id="surname">
+        <input type="date" placeholder="DaB" id="dab">
+        <input type="number" placeholder="IELTS" id="ielts">
+        <br>
+        <br>
+        <button onclick="addNewStudent()" id="addStudentButton" disabled>Add Student</button>
+    </div>
     
+
+    <script src="index.js"></script>
 </body>
+
 </html>
