@@ -41,11 +41,12 @@ function addNewStudent() {
         document.getElementById('makeRadio').checked = false;
         document.getElementById('makeRadio').checked = false;
     } else if (birthDate > new Date()) {
+        document.getElementById('birth').value = '';
         message = "Please enter a correct birth date";
     }
 
     if (!message.startsWith("-1")) {
-        showErrorMessage(message);
+        showMessage(message, false);
         return;
     }
 
@@ -58,7 +59,8 @@ function addNewStudent() {
     }
 
     arrOfStudents.push(newStudent);
-
+    changeAllOfThemToEmpty();
+    showMessage("Added new Student successfully", true);
 }
 
 function changeAllOfThemToEmpty() {
@@ -66,8 +68,9 @@ function changeAllOfThemToEmpty() {
     document.getElementById('surname').value = '';
     document.getElementById('birth').value = '';
     document.getElementById('ielts').value = '';
-    document.getElementById('maleRadio').value = '';
-    document.getElementById('femaleRadio').value = '';
+    document.getElementById('maleRadio').checked = false;
+    document.getElementById('femaleRadio').checked = false;
+    document.getElementById('addStudentButton').disabled = true;
 }
 
 function getGender() {
@@ -80,18 +83,19 @@ function getGender() {
     return null;
 }
 
-function showErrorMessage(message) {
-    const errorMessage = document.getElementById('main');
-    errorMessage.textContent = message;
-    errorMessage.style.color = 'red';
+function showMessage(message, isError = false) {
+    const shownMessage = document.getElementById('main');
+    shownMessage.textContent = message;
+
+    if (isError) {
+        shownMessage.style.color = 'green';
+    } else {
+        shownMessage.style.color = 'red';
+    }
+
 
     setTimeout(function () {
-        errorMessage.textContent = "Add new Student";
-        errorMessage.style.color = 'black';
+        shownMessage.textContent = "Add new Student";
+        shownMessage.style.color = 'black';
     }, 3000);
-}
-
-function isValidDate(dateString) {
-    const dateObject = new Date(dateString);
-    return !isNaN(dateObject.getTime());
 }
